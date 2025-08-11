@@ -19,10 +19,10 @@ void blinkAlert() {
     cout << "\r *" << flush;
     sleep_for(seconds(1));
   }
-  cout << "\r  \r" << flush; // Clear line after alert
+  cout << "\r  \r" << flush;  // Clear line after alert
 }
 
-int tempOk(float temperature){
+int tempOk(float temperature) {
     if (temperature > TEMP_HIGH || temperature < TEMP_LOW) {
     cout << "Temperature is critical!\n";
     blinkAlert();
@@ -30,7 +30,7 @@ int tempOk(float temperature){
     }
   return OK;
 }
-int pulseRateOk(float pulseRate){
+int pulseRateOk(float pulseRate) {
   if (pulseRate < PULSE_LOW || pulseRate > PULSE_HIGH) {
     cout << "Pulse Rate is out of range!\n";
     blinkAlert();
@@ -38,7 +38,7 @@ int pulseRateOk(float pulseRate){
   }
 return OK;
 }
-int spo2Ok(float spo2){
+int spo2Ok(float spo2) {
   if (spo2 < SPO2_MIN) {
     cout << "Oxygen Saturation out of range!\n";
     blinkAlert();
