@@ -40,12 +40,10 @@ int tempOk(float temperature, TempUnit unit = TempUnit::Fahrenheit) {
             unit == TempUnit::Celsius ? " C" : " F") << ") is critical!\n";
         blinkAlert();
         return NOT_OK;
-    }
-    else if ((tempF >= TEMP_LOW && tempF <= TEMP_LOW + tolerance)) {
+    } else if ((tempF >= TEMP_LOW && tempF <= TEMP_LOW + tolerance)) {
         cout << "Warning: Approaching hypothermia (" << temperature << (
             unit == TempUnit::Celsius ? " C" : " F") << ")\n";
-    }
-    else if ((tempF >= TEMP_HIGH - tolerance && tempF <= TEMP_HIGH)) {
+    } else if ((tempF >= TEMP_HIGH - tolerance && tempF <= TEMP_HIGH)) {
         cout << "Warning: Approaching hyperthermia (" << temperature << (
             unit == TempUnit::Celsius ? " C" : " F") << ")\n";
     }
