@@ -36,15 +36,18 @@ int tempOk(float temperature, TempUnit unit = TempUnit::Fahrenheit) {
     constexpr float tolerance = TEMP_HIGH * 0.015f;  // 1.5% of upper limit
 
     if (tempF > TEMP_HIGH || tempF < TEMP_LOW) {
-        cout << "Temperature (" << temperature << (unit == TempUnit::Celsius ? " C" : " F") << ") is critical!\n";
+        cout << "Temperature (" << temperature << (
+            unit == TempUnit::Celsius ? " C" : " F") << ") is critical!\n";
         blinkAlert();
         return NOT_OK;
     }
     else if ((tempF >= TEMP_LOW && tempF <= TEMP_LOW + tolerance)) {
-        cout << "Warning: Approaching hypothermia (" << temperature << (unit == TempUnit::Celsius ? " C" : " F") << ")\n";
+        cout << "Warning: Approaching hypothermia (" << temperature << (
+            unit == TempUnit::Celsius ? " C" : " F") << ")\n";
     }
     else if ((tempF >= TEMP_HIGH - tolerance && tempF <= TEMP_HIGH)) {
-        cout << "Warning: Approaching hyperthermia (" << temperature << (unit == TempUnit::Celsius ? " C" : " F") << ")\n";
+        cout << "Warning: Approaching hyperthermia (" << temperature << (
+            unit == TempUnit::Celsius ? " C" : " F") << ")\n";
     }
     return OK;
 }
