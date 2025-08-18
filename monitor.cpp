@@ -11,13 +11,7 @@ constexpr float PULSE_HIGH = 100.0f;
 constexpr float SPO2_MIN = 90.0f;
 constexpr int OK = 1;
 constexpr int NOT_OK = 0;
-enum class TempUnit {
-    Fahrenheit,
-    Celsius
-};
-float celsiusToFahrenheit(float tempC) {
-    return (tempC * 9.0f / 5.0f) + 32.0f;
-}
+constexpr float tolerance = TEMP_HIGH * 0.015f;  // 1.5% of upper limit
 
 void blinkAlert() {
   for (int i = 0; i < 6; i++) {
@@ -29,34 +23,24 @@ void blinkAlert() {
   cout << "\r  \r" << flush;  // Clear line after alert
 }
 
-int tempOk(float temperature, TempUnit unit = TempUnit::Fahrenheit) {
-    // Convert to Fahrenheit for internal checks
-    float tempF = (unit == TempUnit::Celsius) ? celsiusToFahrenheit(temperature) : temperature;
-    constexpr float tolerance = TEMP_HIGH * 0.015f;  // 1.5% of upper limit
+int tempOk(float temperature) {
     if (tempF > TEMP_HIGH || tempF < TEMP_LOW) {
-        cout << "Temperature (" << temperature << (
-            unit == TempUnit::Celsius ? " C" : " F") << ") is critical!\n";
+        cout << "Temperature is critical!\n";
         blinkAlert();
         return NOT_OK;
     }
-    temp_hypothermia(temperature,unit = TempUnit::Fahrenheit);
-    temp_hyperthermia(temperature,unit = TempUnit::Fahrenheit);
+    temp_hypothermia(temperature);
+    temp_hyperthermia(temperature);
     return OK;
 }
-int temp_hypothermia(float temperature, TempUnit unit = TempUnit::Fahrenheit) {
-    float tempF = (unit == TempUnit::Celsius) ? celsiusToFahrenheit(temperature) : temperature;
-    constexpr float tolerance = TEMP_HIGH * 0.015f;  // 1.5% of upper limit
+int temp_hypothermia(float temperature) {
     if ((tempF >= TEMP_LOW && tempF <= TEMP_LOW + tolerance)) {
-        cout << "Warning: Approaching hypothermia (" << temperature << (
-            unit == TempUnit::Celsius ? " C" : " F") << ")\n";
+        cout << "Warning: Approaching hypothermia\n";
     }
 }
 int temp_hyperthermia(float temperature, TempUnit unit = TempUnit::Fahrenheit) {
-    float tempF = (unit == TempUnit::Celsius) ? celsiusToFahrenheit(temperature) : temperature;
-    constexpr float tolerance = TEMP_HIGH * 0.015f;  // 1.5% of upper limit
     if ((tempF >= TEMP_HIGH - tolerance && tempF <= TEMP_HIGH)) {
-        cout << "Warning: Approaching hyperthermia (" << temperature << (
-            unit == TempUnit::Celsius ? " C" : " F") << ")\n";
+        cout << "Warning: Approaching hyperthermia\n";
     }
 }
 int pulseRateOk(float pulseRate) {
@@ -79,4 +63,3 @@ return OK;
 int vitalsOk(float temperature, float pulseRate, float spo2) {
   return tempOk(temperature) && pulseRateOk(pulseRate) && spo2Ok(spo2);
 }
-
