@@ -23,6 +23,17 @@ void blinkAlert() {
   cout << "\r  \r" << flush;  // Clear line after alert
 }
 
+void temp_hypothermia(float temperature) {
+    if ((temperature >= TEMP_LOW && temperature <= TEMP_LOW + tolerance)) {
+        cout << "Warning: Approaching hypothermia\n";
+    }
+}
+void temp_hyperthermia(float temperature) {
+    if ((temperature >= TEMP_HIGH - tolerance && temperature <= TEMP_HIGH)) {
+        cout << "Warning: Approaching hyperthermia\n";
+    }
+}
+
 int tempOk(float temperature) {
     if (temperature > TEMP_HIGH || temperature < TEMP_LOW) {
         cout << "Temperature is critical!\n";
@@ -33,16 +44,7 @@ int tempOk(float temperature) {
     temp_hyperthermia(temperature);
     return OK;
 }
-int temp_hypothermia(float temperature) {
-    if ((temperature >= TEMP_LOW && temperature <= TEMP_LOW + tolerance)) {
-        cout << "Warning: Approaching hypothermia\n";
-    }
-}
-int temp_hyperthermia(float temperature) {
-    if ((temperature >= TEMP_HIGH - tolerance && temperature <= TEMP_HIGH)) {
-        cout << "Warning: Approaching hyperthermia\n";
-    }
-}
+
 int pulseRateOk(float pulseRate) {
   if (pulseRate < PULSE_LOW || pulseRate > PULSE_HIGH) {
     cout << "Pulse Rate is out of range!\n";
