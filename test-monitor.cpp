@@ -8,7 +8,10 @@ TEST(Monitor, NotOkWhenAnyVitalIsOffRange) {
   ASSERT_TRUE(vitalsOk(102, 100, 90));
   ASSERT_FALSE(vitalsOk(94, 59, 89));
   ASSERT_FALSE(vitalsOk(103, 101, 91));
+  ASSERT_TRUE(vitalsOk(101, 100, 90));
+  ASSERT_TRUE(vitalsOk(96, 100, 90));
 }
+
 
 
 
